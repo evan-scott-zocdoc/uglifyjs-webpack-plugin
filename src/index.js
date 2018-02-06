@@ -161,7 +161,12 @@ class UglifyJsPlugin {
                   'uglifyjs-webpack-plugin': versions.plugin,
                   'uglifyjs-webpack-plugin-options': this.options,
                   path: compiler.outputPath ? `${compiler.outputPath}/${file}` : file,
-                  hash: crypto.createHash('md5').update(input).digest('hex'),
+                  inputHash: crypto.createHash('md5').update(
+                    input ? input.toString() : '',
+                  ).digest('hex'),
+                  inputSourceMapHash: crypto.createHash('md5').update(
+                    inputSourceMap ? inputSourceMap.toString() : '',
+                  ).digest('hex'),
                 });
               }
 
